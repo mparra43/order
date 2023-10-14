@@ -24,8 +24,22 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
+Esta es una api para la consulta de ordenes para probar 
+```bash
+1.haga la instalación,
+```
+```bash
+ 2.Agregué las variables de entorno en un archivo .env como  le muestra en el ejemplo en el archivo .env.example.
+ ```
+ ```bash
+ 3.levante la imagen de la base de datos con el comando  $ npm run start:db
+```
+ ```bash
+ 4.levante el proyecto con el comando $ npm run start:dev
+```
+ ```bash
+ 5.corra la semilla para probar en el cliente el cual lo encontrara en https://github.com/mparra43/order-manager-client
+```
 ## Installation
 
 ```bash
