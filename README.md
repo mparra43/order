@@ -41,6 +41,10 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
+# docker image db
+$ npm run start:db
+
+
 # production mode
 $ npm run start:prod
 ```
