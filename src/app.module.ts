@@ -2,13 +2,17 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
-import { OrdersModule } from './orders/orders.module';
-import { ProductsModule } from './products/products.module';
-import { UsersModule } from './users/users.module';
+
+
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import * as Joi from 'joi';
 import config from './config';
 import { DatabasePostgresModule } from './database/postgres.module';
+import { SeedModule } from './seed/seed.module';
+import { ProductModule } from './products/product.module';
+import { OrderModule } from './orders/order.module';
+import { UserModule } from './users/user.module';
+
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
     autoSchemaFile: true,
@@ -29,12 +33,14 @@ import { DatabasePostgresModule } from './database/postgres.module';
       JWT_SECRET: Joi.string().required(),
     }),
   }),
-  DatabasePostgresModule,
-  OrdersModule,
-  ProductsModule, 
-  UsersModule
-],
+
+    DatabasePostgresModule,
+    ProductModule,
+    OrderModule,
+    UserModule,
+    SeedModule
+  ],
   controllers: [AppController],
-  
+
 })
 export class AppModule { }

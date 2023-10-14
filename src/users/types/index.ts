@@ -4,7 +4,7 @@ export enum DocumentType {
   }
 
 
-  export enum RoleType {
+  export enum RoleName {
     ADMIN = 'Administrador',
     CUSTOMER = 'Cliente',
   }

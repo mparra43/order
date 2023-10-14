@@ -11,8 +11,9 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { OrderProduct } from './orderProduct.entity';
-import { Customer } from 'src/users/entities';
+import { Customer } from '../../users/entities';
 import { OrderState } from '../types';
+import { string } from 'joi';
 
 @ObjectType()
 @Entity()
@@ -35,15 +36,16 @@ export class Order {
     @OneToOne(() => Customer, (customer) => customer.orders)
     @JoinColumn({
         name: 'customer_id',
-      })
+    })
     @Field(() => Customer)
     customer: Customer;
 
     @Column({
         type: 'date',
-        name: 'estimated_delivery-date',
+        name: 'estimatedDeliveryDate',
+        nullable: false
     })
-    @Field(() => Date)
+    @Field(() => String)
     estimatedDeliveryDate: Date;
 
     @Column({
@@ -52,7 +54,7 @@ export class Order {
         default: null,
     })
     @Field(() => String)
-    state: OrderState;
+    state: string;
 
     @CreateDateColumn({
         type: 'timestamptz',

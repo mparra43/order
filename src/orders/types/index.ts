@@ -1,6 +1,6 @@
 export enum OrderState {
-    ACCEPTED = 'ACCEPTED',
-    SENT = 'SENT',
-    CANCELED = 'CANCELED',
-    DELIVERED = 'DELIVERED',
+    ACCEPTED = 'ACEPTADA',
+    SENT = 'ENVIADA',
+    CANCELED = 'CANCELADA',
+    DELIVERED = 'ENTREGADA',
   }

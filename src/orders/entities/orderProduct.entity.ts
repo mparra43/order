@@ -10,7 +10,8 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { Order } from './order.entity';
-import { Product } from 'src/products/entities/product.entity';
+import { Product } from '../../products/entities';
+
 
 @ObjectType()
 @Entity()
@@ -26,16 +27,18 @@ export class OrderProduct {
     @Field(() => Number)
     quantity: number;
 
+
     @ManyToOne(() => Order, (order) => order.orderProducts)
     @JoinTable({
         name: 'order',
     })
     order: Order;
 
-    @ManyToOne(() => Product, (product) => product)
+    @ManyToOne(() => Product, (product) => product.orderProducts)
     @JoinTable({
         name: 'product',
     })
+    @Field(() => Product)
     product: Product;
 
     @CreateDateColumn({
@@ -62,7 +65,7 @@ export class OrderProduct {
 
     constructor(quantity: number, order: Order, product: Product) {
         this.quantity = quantity;
-        this.order = order;
-        this.product = product;
+        this.order = order
+        this.product = product
     }
 }

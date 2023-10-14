@@ -1,10 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from '../../orders/entities';
 import { User } from './user.entity';
 
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     JoinColumn,
     OneToMany,
@@ -17,8 +18,8 @@ import { DocumentType } from '../types';
 @ObjectType()
 @Entity()
 export class Customer {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({
         type: 'text',
@@ -33,7 +34,7 @@ export class Customer {
         nullable: true,
     })
     @Field(() => String, { nullable: true })
-    typeDocument: string;
+    documentType: string;
 
     @Column({
         type: 'int',
@@ -53,12 +54,12 @@ export class Customer {
     @Field(() => User)
     user: User;
 
-    @Column({
+    @CreateDateColumn({
         type: 'timestamptz',
-        name: 'date',
+        name: 'created_at',
+        default: () => 'CURRENT_TIMESTAMP',
     })
-    @Field(() => Date)
-    date: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({
         type: 'timestamptz',
@@ -67,16 +68,16 @@ export class Customer {
     })
     updateAt: Date;
 
-    @CreateDateColumn({
-        type: 'timestamptz',
-        name: 'created_at',
-        default: () => 'CURRENT_TIMESTAMP',
-    })
-    createdAt: Date;
 
-    constructor( name: string, typeDocument: string, documentNumber: number) {
+    @DeleteDateColumn({
+        type: 'timestamptz',
+        name: 'deleted_at',
+    })
+    deletedAt: Date;
+
+    constructor( name: string, documentType: string, documentNumber: number) {
         this.name = name;
-        this.typeDocument = typeDocument;
+        this.documentType = documentType;
         this.document = documentNumber;
     }
 }

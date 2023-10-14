@@ -1,20 +1,21 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Customer } from './customer.entity';
-import { RoleType } from '../types/index';
+import { RoleName } from '../types/index';
 import {
     Column,
     Entity,
     OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
-    CreateDateColumn
+    CreateDateColumn,
+    DeleteDateColumn
 } from 'typeorm';
 
 @ObjectType()
 @Entity()
 export class User {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column({
         type: 'text',
@@ -30,7 +31,7 @@ export class User {
 
     @Column({
         type: 'enum',
-        enum:  RoleType,
+        enum:  RoleName,
         nullable: true,
       })
       @Field(() => String)
@@ -39,12 +40,14 @@ export class User {
     @OneToOne(() => Customer, (customer) => customer.user)
     @Field(() => Customer)
     customer: Customer;
-    @Column({
+
+
+    @CreateDateColumn({
         type: 'timestamptz',
-        name: 'date',
+        name: 'created_at',
+        default: () => 'CURRENT_TIMESTAMP',
     })
-    @Field(() => Date)
-    date: Date;
+    createdAt: Date;
     
     @UpdateDateColumn({
         type: 'timestamptz',
@@ -53,12 +56,11 @@ export class User {
     })
     updateAt: Date;
 
-    @CreateDateColumn({
+    @DeleteDateColumn({
         type: 'timestamptz',
-        name: 'created_at',
-        default: () => 'CURRENT_TIMESTAMP',
+        name: 'deleted_at',
     })
-    createdAt: Date;
+    deletedAt: Date;
 
     constructor(email: string, password: string, role: string) {
         this.email = email;

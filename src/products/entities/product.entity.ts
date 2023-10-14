@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { OrderProduct } from 'src/orders/entities';
+import { OrderProduct } from '../../orders/entities';
 import {
     Column,
     CreateDateColumn,
@@ -38,6 +38,13 @@ export class Product {
     })
     @Field(() => Number)
     price: number;
+
+    @Column({
+        type: 'text',
+        nullable: true,
+    })
+    @Field(() => String)
+    reference: string;
 
     @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
     @Field(() => [OrderProduct])

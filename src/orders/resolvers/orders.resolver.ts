@@ -1,19 +1,18 @@
 
-import { Query,  Resolver, } from '@nestjs/graphql';
-// import { Order } from './entities/order';
-// import { OrderService } from './services/order.service';
+import { Args, Query,  Resolver, } from '@nestjs/graphql';
+import { OrdersService } from '../services';
+import { Order } from '../entities';
+import { InputOrderFilters } from '../dto';
+
 
 @Resolver('orders')
 export class OrdersResolver {
-//   constructor(private readonly orderService: OrderService) {}
+ constructor(private readonly orderService: OrdersService) {}
 
-  @Query((() => String))
-  async orders(): Promise<string> {
-    return `await this.orderService.findAll()`;
+  @Query((() => Order))
+  async order(@Args('filters') filters:InputOrderFilters) {
+    return this.orderService.findOrder(filters);
   }
 
-  @Query((() => String))
-  async order(id: string): Promise<string> {
-    return `await this.orderService.findOne(id)`;
-  }
+  
 }
